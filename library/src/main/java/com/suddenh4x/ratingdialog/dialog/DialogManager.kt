@@ -52,21 +52,21 @@ internal object DialogManager {
                 when {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
-                        showRatingDialog(dialogOptions, DialogType.RATING_STORE, activity)
+                        showRatingDialog(DialogType.RATING_STORE, activity)
                     }
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is enabled. Showing custom feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
-                        showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
+                        showRatingDialog(DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is disabled. Showing mail feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
-                        showRatingDialog(dialogOptions, DialogType.FEEDBACK_MAIL, activity)
+                        showRatingDialog(DialogType.FEEDBACK_MAIL, activity)
                     }
                 }
             }
@@ -94,11 +94,10 @@ internal object DialogManager {
     }
 
     private fun showRatingDialog(
-        dialogOptions: DialogOptions,
         dialogType: DialogType,
         activity: FragmentActivity
     ) {
-        RateDialogFragment.newInstance(dialogOptions, dialogType)
+        RateDialogFragment.newInstance(dialogType)
             .show(activity.supportFragmentManager, TAG)
     }
 

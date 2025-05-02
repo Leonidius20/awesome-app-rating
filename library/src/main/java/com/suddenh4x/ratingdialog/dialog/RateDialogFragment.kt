@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import com.suddenh4x.ratingdialog.RatingDialogViewModel
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 
@@ -15,13 +17,16 @@ internal class RateDialogFragment : DialogFragment() {
     @VisibleForTesting
     internal lateinit var dialogType: DialogType
 
+    internal lateinit var viewModel: RatingDialogViewModel
+
     // cannot use by lazy because of mocking limitations of mockk
     @VisibleForTesting
-    internal lateinit var dialogOptions: DialogOptions
+    internal val dialogOptions: DialogOptions get() = viewModel.dialogOptions
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        dialogOptions = arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
+        viewModel = ViewModelProvider(requireActivity())[RatingDialogViewModel::class.java]
+
         dialogType = arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         isCancelable = dialogOptions.cancelable
 
@@ -62,20 +67,15 @@ internal class RateDialogFragment : DialogFragment() {
 
     companion object {
         internal const val ARG_DIALOG_TYPE = "DialogType"
-        internal const val ARG_DIALOG_OPTIONS = "DialogOptions"
 
-        fun newInstance(dialogOptions: DialogOptions): RateDialogFragment {
+        fun newInstance(): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
-            rateDialogFragment.arguments = Bundle().apply {
-                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
-            }
             return rateDialogFragment
         }
 
-        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+        fun newInstance(dialogType: DialogType): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
-                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
                 putSerializable(ARG_DIALOG_TYPE, dialogType)
             }
             return rateDialogFragment

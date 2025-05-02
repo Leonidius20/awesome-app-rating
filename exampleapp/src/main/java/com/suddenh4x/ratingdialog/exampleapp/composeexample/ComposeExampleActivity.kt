@@ -3,6 +3,7 @@ package com.suddenh4x.ratingdialog.exampleapp.composeexample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
@@ -10,7 +11,7 @@ import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.exampleapp.R
 import com.suddenh4x.ratingdialog.exampleapp.composeexample.ui.ComposeExampleApp
 
-class ComposeExampleActivity : ComponentActivity() {
+class ComposeExampleActivity : AppCompatActivity() {
     private val viewModel: ComposeExampleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: "de.mannodermaus.android-junit5"
 
-def version = "2.7.0"
+def version = "2.7.1"
 
 android {
     namespace 'com.suddenh4x.ratingdialog'
@@ -26,6 +26,14 @@ android {
 
     kotlin {
         jvmToolchain 17
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
 }
 
