@@ -34,7 +34,7 @@ afterEvaluate {
                     artifact("$buildDir/libs/${project.getName()}-${version}.jar")
                 }
 
-                artifact androidSourcesJar
+                // artifact androidSourcesJar
 
                 // Mostly self-explanatory metadata
                 pom {
@@ -66,6 +66,8 @@ afterEvaluate {
             }
         }
     }
+
+    generateMetadataFileForReleasePublication.dependsOn androidSourcesJar
 }
 
 if (rootProject.ext.hasProperty("signing.keyId")) {
@@ -76,6 +78,6 @@ if (rootProject.ext.hasProperty("signing.keyId")) {
     println "signing.keyId not found in project."
 }
 
-signing {
-    sign publishing.publications
-}
+//signing {
+//    sign publishing.publications
+//}
